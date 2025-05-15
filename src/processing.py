@@ -21,7 +21,6 @@ def filter_by_state(list_of_dicts: list[dict[str, Any]], state: str = "EXECUTED"
 
 print(filter_by_state(list_of_dicts))
 
-
 def sort_by_date(list_of_dicts: list[dict[str, Any]], reverse_list: bool = True) -> list[dict[str, Any]]:
     """Функция принимает список и сортирует его по убыванию"""
 

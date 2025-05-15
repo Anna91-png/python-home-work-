@@ -9,10 +9,20 @@ def get_mask_card_number(number_card: str) -> str:
     return f"{number_card[0:4]} {number_card[4:6]}** **** {number_card[-4:]}"
 
 
-def get_mask_account(number_card: str) -> str:
+def get_mask_account(account_number: str) -> str:
     """
-    Функция get_mask_account принимает на вход номер
-    счета в виде числа и возвращает маску номера по
-    правилу **XXXX
+    Маскирует номер банковского счета, оставляя видимыми последние 4 цифры.
+
+    :param account_number: Номер счета в виде строки.
+    :return: Замаскированный номер счета в формате **XXXX или сообщение об ошибке.
     """
-    return f"**{number_card[-4:]}"
+    # Убираем пробелы и преобразуем в строку
+    account_number_str = str(account_number).replace(" ", "")
+
+    # Проверка длины и формата
+    if len(account_number_str) < 4 or not account_number_str.isdigit():
+        return "Неверный формат номера счёта"
+
+    # Маскировка: скрываем все, кроме последних 4 цифр
+    masked = "**" + account_number_str[-4:]
+    return masked

@@ -1,5 +1,5 @@
 import pytest
-from src.mask import get_mask_card_number
+from src.mask import get_mask_card_number,get_mask_account
 
 # Тесты для проверки верных номеров карт
 @pytest.mark.parametrize("card_number, expected", [
@@ -28,3 +28,17 @@ def test_invalid_card_numbers(card_number):
 ])
 def test_special_formats(card_number, expected):
     assert get_mask_card_number(card_number) == expected
+
+    @pytest.mark.parametrize("account_number, expected", [
+        (1234123412341234, "**1234"),  # Обычная длина номера
+        ("1234567812345678", "**5678"),  # Номер передан как строка
+        (1234, "**1234"),  # Минимальная длина
+        ("0000000000000000", "**0000"),  # Номер состоит из нулей
+        ("abcd1234", ""),  # Номер содержит нецифровые символы
+        ("", ""),  # Пустая строка
+        (None, ""),  # None
+        (123, ""),  # Слишком короткий номер
+        ("123", ""),  # Слишком короткая строка
+    ])
+    def test_get_mask_account(account_number, expected):
+        assert get_mask_account(account_number) == expected
