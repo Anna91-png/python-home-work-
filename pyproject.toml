@@ -1,25 +1,28 @@
-[project]
-name = "pythonproject1"
+[tool.poetry]
+name = "python-home-work"
 version = "0.1.0"
 description = ""
-authors = [
-    {name = "Your Name",email = "you@example.com"}
-]
+authors = ["Anna <mirzeyevaaygun34@gmail.com>"]
 readme = "README.md"
-requires-python = ">=3.13"
-dependencies = [
-]
 
+[tool.poetry.dependencies]
+python = "^3.13"
+pytest = "^8.3.5"
 
-[build-system]
-requires = ["poetry-core>=2.0.0,<3.0.0"]
-build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.group.lint.dependencies]
-flake8 = "^7.2.0"
-mypy = "^1.15.0"
 black = "^25.1.0"
+mypy = "^1.15.0"
+flake8 = "^7.2.0"
 isort = "^6.0.1"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest-cov = "^6.1.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
 
 [tool.black]
 # Максимальная длина строки
@@ -38,8 +41,4 @@ line_length = 119
 [tool.mypy]
 disallow_untyped_defs = true
 warn_return_any = true
-exclude = '''
-/(
-    \venv
-)/
-'''
+exclude = 'venv|test'

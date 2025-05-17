@@ -4,19 +4,31 @@ from src.mask import get_mask_account
 from src.mask import get_mask_card_number
 
 
-def mask_account_card(account_list: List[str]) -> None:
+def mask_account_card(input_data):
     """
-    Функция, которая умеет обрабатывать информацию о картах и счетах
-    """
-    for i in account_list:
-        i = i.split()
-        if i[0] == "Visa":
-            print(f"Visa Platinum {get_mask_card_number(i[-1])}")
-        elif i[0] == "Maestro":
-            print(f"Maestro {get_mask_card_number(i[-1])}")
-        elif i[0] == "Счет":
-            print(f"Счет {get_mask_account(i[-1])}")
+    Определяет тип входных данных (карта или счет) и применяет соответствующую маскировку.
+    Карты: Маскируются все символы, кроме последних 4.
+    Счета: Маскируются все символы, кроме последних 4.
+    Если данные некорректны, возвращается пустая строка.
 
+    :param input_data: str или int, номер карты или счета
+    :return: str, замаскированные данные
+    """
+    if not input_data:
+        return ""
+
+    # Преобразуем в строку, если это число
+    input_data = str(input_data)
+
+    # Карты обычно имеют длину 16 цифр
+    if input_data.isdigit():
+        if 13 <= len(input_data) <= 16:  # Типичная длина номера карты
+            return "**" + input_data[-4:]
+        elif len(input_data) >= 4:  # Для номеров счетов минимальная длина — 4 символа
+            return "**" + input_data[-4:]
+
+    # Если входные данные некорректны
+    return ""
 
 def get_date(date: str) -> str:
     """
@@ -46,12 +58,4 @@ mask_account_card(a)
 mask_account_card(b)
 mask_account_card(c)
 mask_account_card(vh)
-print(get_date(my_date))
-
-my_date = "2024-03-11T02:26:18.671407"
-
-mask_account_card(a)
-mask_account_card(b)
-mask_account_card(c)
-mask_account_card(vh)
-print(get_date(my_date))
+#print(get_date(my_date))
