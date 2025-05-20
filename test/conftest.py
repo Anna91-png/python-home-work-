@@ -40,3 +40,31 @@ def rub_expected_list():
     return [
         {'amount': 300, 'currency': 'RUB', 'description': 'Снятие'},
     ]
+@pytest.fixture
+def transactions_sample():
+    return [
+        {
+            "id": 1,
+            "operationAmount": {
+                "amount": "100",
+                "currency": {"name": "USD", "code": "USD"}
+            },
+            "description": "USD transaction"
+        },
+        {
+            "id": 2,
+            "operationAmount": {
+                "amount": "200",
+                "currency": {"name": "RUB", "code": "RUB"}
+            },
+            "description": "RUB transaction"
+        },
+        {
+            "id": 3,
+            "operationAmount": {
+                "amount": "300",
+                "currency": {"name": "EUR", "code": "EUR"}
+            },
+            "description": "EUR transaction"
+        },
+    ]
