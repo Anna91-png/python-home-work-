@@ -1,13 +1,11 @@
-from typing import Any
-
 import pytest
 
 from src.generators import card_number_generator, filter_by_currency, transaction_descriptions
 
+
 @pytest.mark.parametrize(
     "transactions, money, expected",
     [
-        # Валюта есть
         (
             [
                 {"operationAmount": {"currency": {"code": "USD"}}, "description": "usd"},
@@ -16,7 +14,6 @@ from src.generators import card_number_generator, filter_by_currency, transactio
             "USD",
             [{"operationAmount": {"currency": {"code": "USD"}}, "description": "usd"}],
         ),
-        # Валюта отсутствует
         (
             [
                 {"operationAmount": {"currency": {"code": "RUB"}}, "description": "rub"},
@@ -24,13 +21,11 @@ from src.generators import card_number_generator, filter_by_currency, transactio
             "USD",
             [],
         ),
-        # Пустой список
         (
             [],
             "USD",
             [],
         ),
-        # Нет ключа currency
         (
             [
                 {"operationAmount": {}, "description": "no currency"},
@@ -45,7 +40,6 @@ def test_filter_by_currency_param(transactions, money, expected):
     assert result == expected
 
 
-# ---------- transaction_descriptions ----------
 @pytest.mark.parametrize(
     "transactions, expected",
     [
@@ -72,7 +66,6 @@ def test_transaction_descriptions_param(transactions, expected):
     assert result == expected
 
 
-# ---------- card_number_generator ----------
 @pytest.mark.parametrize(
     "start, end, expected",
     [

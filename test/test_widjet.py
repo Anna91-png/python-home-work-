@@ -26,6 +26,7 @@ def test_mask_account_card(input_data, expected):
     assert mask_account_card(input_data) == expected
 
 # Предполагаемая функция для преобразования дат
+
 def get_date(date_string):
     """
     Преобразует строку с датой в объект datetime.
@@ -51,6 +52,7 @@ def get_date(date_string):
     raise ValueError(f"Некорректный формат даты: {date_string}")
 
 # Тестовые данные для параметризации
+
 @pytest.mark.parametrize("input_date, expected", [
     # Проверка стандартных форматов
     ('2025-05-15', datetime(2025, 5, 15)),
@@ -70,6 +72,7 @@ def test_get_date_valid(input_date, expected):
     assert get_date(input_date) == expected
 
 # Тесты на некорректные данные
+
 @pytest.mark.parametrize("input_date", [
     '15/05/2025',         # Неподдерживаемый формат
     '2025-13-01',         # Неверный месяц
