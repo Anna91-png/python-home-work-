@@ -1,17 +1,21 @@
 import pytest
 
+
 @pytest.fixture
 def card_number():
     return "1234567812345678"
+
 
 @pytest.fixture
 def account_number():
     return "987654321"
 
+
 @pytest.fixture
 def account_card_number():
     # Тестовые данные для функции mask_account_card
     return "1234567812345678"
+
 
 @pytest.fixture
 def get_date():
@@ -28,6 +32,7 @@ def full_transactions_list():
         {'amount': 300, 'currency': 'RUB', 'description': 'Снятие'},
     ]
 
+
 @pytest.fixture
 def usd_expected_list():
     return [
@@ -35,11 +40,14 @@ def usd_expected_list():
         {'amount': 50, 'currency': 'USD', 'description': 'Перевод'},
     ]
 
+
 @pytest.fixture
 def rub_expected_list():
     return [
         {'amount': 300, 'currency': 'RUB', 'description': 'Снятие'},
     ]
+
+
 @pytest.fixture
 def transactions_sample():
     return [
