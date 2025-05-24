@@ -1,57 +1,46 @@
-import pytest
-from src.decorators import log
+from typing import List, Dict, Any, Iterator
 
 
-@pytest.fixture(params=[None, "file"])
-def log_destination(request, tmp_path):
-    """Фикстура возвращает либо None (консоль), либо путь к временному файлу"""
-    if request.param == "file":
-        return str(tmp_path / "test_log.txt")
-    return None
+def filter_by_currency(
+    transactions_list: List[Dict[str, Any]],
+    money: str
+) -> Iterator[Dict[str, Any]]:
+    return (
+        entry for entry in transactions_list
+        if (
+            "operationAmount" in entry and
+            "currency" in entry["operationAmount"] and
+            entry["operationAmount"]["currency"].get("code") == money
+        )
+    )
 
 
-@pytest.mark.parametrize(
-    "x, y, expected, raises_error",
-    [
-        (10, 2, 5.0, False),
-        (10, 0, None, True),
-    ]
-)
-def test_log_decorator(log_destination, capsys, x, y, expected, raises_error):
+def transaction_descriptions(
+    transactions_list: List[Dict[str, Any]]
+) -> Iterator[str]:
     """
-    Тестирует декоратор log:
-    - лог выводится в консоль или в файл
-    - результат и ошибки логируются корректно
+    Генератор возвращает описание каждой операции по очереди (ключ 'description').
     """
+    for entry in transactions_list:
+        yield entry.get("description", "")
 
-    @log(filename=log_destination)
-    def div(a: float, b: float) -> float:
-        return a / b
 
-    if raises_error:
-        with pytest.raises(ZeroDivisionError):
-            div(x, y)
+def card_number_generator(
+    start: int | str,
+    end: int | str
+) -> Iterator[str]:
+    """
+    Генератор выдает номера банковских карт в формате XXXX XXXX XXXX XXXX,
+    для диапазона от start до end (оба включительно, могут быть строка или int).
+    """
+    if isinstance(start, str):
+        start_num = int(start.replace(" ", ""))
     else:
-        result = div(x, y)
-        assert result == expected
-
-    # Проверяем лог либо в файле, либо в консоли
-    if log_destination is None:
-        out = capsys.readouterr().out
-        assert "Начало выполнения функции 'div'" in out
-        assert "Конец выполнения функции 'div'" in out
-        if raises_error:
-            assert "Ошибка в функции 'div': ZeroDivisionError" in out
-            assert f"args=({x}, {y})" in out
-        else:
-            assert f"Функция 'div' успешно завершена. Результат: {expected!r}" in out
+        start_num = int(start)
+    if isinstance(end, str):
+        end_num = int(end.replace(" ", ""))
     else:
-        with open(log_destination, encoding="utf-8") as f:
-            log_text = f.read()
-        assert "Начало выполнения функции 'div'" in log_text
-        assert "Конец выполнения функции 'div'" in log_text
-        if raises_error:
-            assert "Ошибка в функции 'div': ZeroDivisionError" in log_text
-            assert f"args=({x}, {y})" in log_text
-        else:
-            assert f"Функция 'div' успешно завершена. Результат: {expected!r}" in log_text
+        end_num = int(end)
+    for num in range(start_num, end_num + 1):
+        s = f"{num:016d}"
+        yield f"{s[:4]} {s[4:8]} {s[8:12]} {s[12:]}"
