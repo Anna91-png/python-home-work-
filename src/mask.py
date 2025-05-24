@@ -4,7 +4,7 @@ def get_mask_card_number(number_card: str) -> str:
     карты в виде числа и возвращает маску номера по правилу
     XXXX XX** **** XXXX
     """
-    if len(number_card)<16:
+    if len(number_card) < 16:
         raise ValueError("количество переданного меньше 16")
     return f"{number_card[0:4]} {number_card[4:6]}** **** {number_card[-4:]}"
 
