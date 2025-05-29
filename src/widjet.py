@@ -1,7 +1,5 @@
 from typing import Optional, Union
 
-
-
 def mask_account_card(account: Optional[Union[str, int]]) -> str:
     """
     Универсальная функция маскирует номер карты/счета (строку или число).
