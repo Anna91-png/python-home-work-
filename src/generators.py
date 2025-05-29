@@ -43,4 +43,4 @@ def card_number_generator(
         end_num = int(end)
     for num in range(start_num, end_num + 1):
         s = f"{num:016d}"
-        yield f"{s[:4]} {s[4:8]} {s[8:12]} {s[12:]}"
+
