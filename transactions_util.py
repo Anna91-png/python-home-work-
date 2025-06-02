@@ -1,9 +1,8 @@
-from external_api import convert_to_rub
+from src.utils import get_transactions
 
-def get_transaction_amount_rub(transaction: dict) -> float:
-    """
-    Возвращает сумму транзакции в рублях (float), конвертируя при необходимости.
-    """
-    amount = transaction.get("amount")
-    currency = transaction.get("currency", "RUB")
-    return convert_to_rub(amount, currency)
+transactions = get_transactions("data/operations.json")
+print(transactions)
+print(f"Прочитано транзакций: {len(transactions)}")
+print("Первые 2 транзакции:")
+for tx in transactions[:2]:
+    print(tx)
