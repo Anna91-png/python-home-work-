@@ -4,6 +4,7 @@ from typing import Any, Callable, Optional, TypeVar, cast
 
 F = TypeVar("F", bound=Callable[..., Any])
 
+
 def log(filename: Optional[str] = None) -> Callable[[F], F]:
     """
     Декоратор для логирования вызова и завершения функции, а также обработки исключений.

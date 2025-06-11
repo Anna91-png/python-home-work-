@@ -76,6 +76,8 @@ def transactions_sample():
             "description": "EUR transaction"
         },
     ]
+
+
 @pytest.fixture
 def fixture_for_expected_transactions_list():
     # Пример списка транзакций
@@ -83,6 +85,7 @@ def fixture_for_expected_transactions_list():
         {"amount": 100, "currency": "USD"},
         {"amount": 200, "currency": "EUR"}
     ]
+
 
 @pytest.fixture
 def fixture_for_expected_path_file(tmp_path):
