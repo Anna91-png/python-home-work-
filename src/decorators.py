@@ -67,4 +67,3 @@ def log(filename: Optional[str] = None) -> Callable[[F], F]:
                 if logger is not None and close_logger:
                     logger.close()
         return cast(F, wrapper)
-    return decorator
