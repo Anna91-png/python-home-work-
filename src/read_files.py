@@ -1,16 +1,27 @@
+import csv
+
+
+def read_transactions_from_csv(file_path):
+    transactions = []
+    with open(file_path, newline='', encoding='utf-8') as csvfile:
+        reader = csv.DictReader(csvfile)
+        for row in reader:
+            transactions.append(dict(row))
+    return transactions
+
+
+if __name__ == "__main__":
+    # Здесь тестируем функции
+    transactions = read_transactions_from_csv("../data/transactions.csv")
+    print(transactions)
+    print(type(transactions))
+    if transactions:
+        print(type(transactions[0]))
+
 import openpyxl
 import os
 
-
 def read_transactions_from_excel(file_path):
-    """Считывает финансовые операции из Excel-файла.
-
-    Args:
-        file_path (str): Путь к Excel-файлу (xlsx).
-
-    Returns:
-        list[dict]: Список операций, каждая операция — это словарь с данными из файла.
-    """
     transactions = []
     wb = openpyxl.load_workbook(file_path)
     ws = wb.active
@@ -19,7 +30,6 @@ def read_transactions_from_excel(file_path):
         transaction = dict(zip(headers, row))
         transactions.append(transaction)
     return transactions
-
 
 if __name__ == "__main__":
     print("Текущая рабочая директория:", os.getcwd())
