@@ -7,6 +7,7 @@ load_dotenv()
 EXCHANGE_API_KEY = os.getenv("EXCHANGE_RATES_API_KEY")
 API_URL = "https://api.apilayer.com/exchangerates_data/convert"
 
+
 def convert_to_rub(amount: float, from_currency: str) -> float:
     """
     Конвертирует сумму в валюте from_currency в рубли (RUB) через внешний API.

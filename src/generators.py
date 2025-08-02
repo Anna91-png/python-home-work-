@@ -43,4 +43,3 @@ def card_number_generator(
         end_num = int(end)
     for num in range(start_num, end_num + 1):
         s = f"{num:016d}"
-

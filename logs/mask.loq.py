@@ -13,6 +13,7 @@ file_handler.setFormatter(file_formatter)
 if not any(isinstance(h, logging.FileHandler) for h in logger.handlers):
     logger.addHandler(file_handler)
 
+
 def get_mask_card_number(number_card: str) -> str:
     """
     Функция get_mask_card_number принимает на вход номер
@@ -29,6 +30,7 @@ def get_mask_card_number(number_card: str) -> str:
     except Exception as e:
         logger.error(f"Ошибка при маскировке карты: {e}")
         raise
+
 
 def get_mask_account(account_number: str) -> str:
     """
